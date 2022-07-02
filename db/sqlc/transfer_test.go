@@ -28,3 +28,9 @@ func createRandomTransfer(t *testing.T, fromAccount Account, toAccount Account) 
 
 	return transfer
 }
+
+func TestCreateTransfer(t *testing.T) {
+	fromAccount := createRandomAccount(t)
+	toAccount := createRandomAccount(t)
+	createRandomTransfer(t, fromAccount, toAccount)
+}

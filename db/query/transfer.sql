@@ -16,7 +16,3 @@ SELECT * FROM transfers
 ORDER BY id
 LIMIT $1
 OFFSET $2;
-
--- name: DeleteTransfer :exec
-DELETE FROM transfers
-WHERE id = $1;

@@ -51,3 +51,25 @@ func TestGetTransfer(t *testing.T) {
 	require.Equal(t, randomTransfer.Amount, transfer.Amount)
 	require.WithinDuration(t, randomTransfer.CreatedAt, transfer.CreatedAt, time.Second)
 }
+
+func TestGetListTransfers(t *testing.T) {
+	for i := 0; i < 10; i++ {
+		account1 := createRandomAccount(t)
+		account2 := createRandomAccount(t)
+		createRandomTransfer(t, account1, account2)
+	}
+
+	arg := GetListTransfersParams{
+		Limit:  6,
+		Offset: 6,
+	}
+
+	transfers, err := testQueries.GetListTransfers(context.Background(), arg)
+	require.NoError(t, err)
+	require.NotEmpty(t, transfers)
+	require.Len(t, transfers, 6)
+
+	for _, transfer := range transfers {
+		require.NotEmpty(t, transfer)
+	}
+}

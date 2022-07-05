@@ -2,7 +2,9 @@ name: Run unit tests
 
 on:
   push:
-    branches: ["ci"]
+    branches:
+      - main
+      - ci
   pull_request:
     branches: ["main"]
 

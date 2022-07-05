@@ -52,14 +52,14 @@ func TestGetListEntries(t *testing.T) {
 	}
 
 	arg := GetListEntriesParams{
-		Limit:  8,
-		Offset: 8,
+		Limit:  4,
+		Offset: 4,
 	}
 
 	entries, err := testQueries.GetListEntries(context.Background(), arg)
 	require.NoError(t, err)
 	require.NotEmpty(t, entries)
-	require.Len(t, entries, 8)
+	require.Len(t, entries, 4)
 
 	for _, entry := range entries {
 		require.NotEmpty(t, entry)

@@ -12,4 +12,5 @@ require (
 	github.com/gin-gonic/gin v1.8.1
 	github.com/go-playground/validator/v10 v10.10.0
 	github.com/golang/mock v1.6.0
+	golang.org/x/crypto v0.0.0-20220622213112-05595931fe9d
 )

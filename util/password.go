@@ -7,6 +7,9 @@ import (
 )
 
 func HashPassword(password string) (string, error) {
+	if len(password) < 6 {
+		return "", fmt.Errorf("password should be at least 6 characters")
+	}
 	hashedPassword, err := bcrypt.GenerateFromPassword([]byte(password), bcrypt.DefaultCost)
 	if err != nil {
 		return "", fmt.Errorf("failed to hash password: %w", err)

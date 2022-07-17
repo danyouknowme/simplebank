@@ -100,7 +100,7 @@ func TestCreateUser(t *testing.T) {
 			name: "HashPasswordError",
 			body: gin.H{
 				"username":  user.Username,
-				"password":  "1234",
+				"password":  "dan4854654",
 				"full_name": user.FullName,
 				"email":     user.Email,
 			},
@@ -176,7 +176,7 @@ func TestCreateUser(t *testing.T) {
 }
 
 func randomUser(t *testing.T) (user db.User, password string) {
-	password = util.RandomString(6)
+	password = "$Password1234"
 	hashedPassword, err := util.HashPassword(password)
 	require.NoError(t, err)
 

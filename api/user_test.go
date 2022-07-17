@@ -97,6 +97,23 @@ func TestCreateUser(t *testing.T) {
 			},
 		},
 		{
+			name: "HashPasswordError",
+			body: gin.H{
+				"username":  user.Username,
+				"password":  "1234",
+				"full_name": user.FullName,
+				"email":     user.Email,
+			},
+			buildStubs: func(store *mockdb.MockStore) {
+				store.EXPECT().
+					CreateUser(gomock.Any(), gomock.Any()).
+					Times(0)
+			},
+			checkResponse: func(recorder *httptest.ResponseRecorder) {
+				require.Equal(t, http.StatusInternalServerError, recorder.Code)
+			},
+		},
+		{
 			name: "DuplicateUsername",
 			body: gin.H{
 				"username":  user.Username,

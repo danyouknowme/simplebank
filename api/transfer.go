@@ -42,7 +42,7 @@ func (server *Server) createTransfer(ctx *gin.Context) {
 		return
 	}
 
-	arg := db.CreateTransferParams{
+	arg := db.TransferTxParams{
 		FromAccountID: req.FromAccountID,
 		ToAccountID:   req.ToAccountID,
 		Amount:        req.Amount,
@@ -60,7 +60,7 @@ func (server *Server) createTransfer(ctx *gin.Context) {
 func (server *Server) validAccount(ctx *gin.Context, accountID int64, currency string) (db.Account, bool) {
 	account, err := server.store.GetAccount(ctx, accountID)
 	if err != nil {
-		if err != sql.ErrNoRows {
+		if err == sql.ErrNoRows {
 			ctx.JSON(http.StatusNotFound, errorResponse(err))
 			return account, false
 		}
@@ -70,7 +70,7 @@ func (server *Server) validAccount(ctx *gin.Context, accountID int64, currency s
 	}
 
 	if account.Currency != currency {
-		err := fmt.Errorf("account [%d] currency mismatch %s vs %s", account.ID, account.Currency, currency)
+		err := fmt.Errorf("account [%d] currency mismatch: %s vs %s", account.ID, account.Currency, currency)
 		ctx.JSON(http.StatusBadRequest, errorResponse(err))
 		return account, false
 	}

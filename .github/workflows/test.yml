@@ -11,7 +11,11 @@ on:
 jobs:
   test:
     name: Test
-    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        go: ['1.20']
+        os: [macos-latest, windows-latest, ubuntu-latest]
+    runs-on: ${{ matrix.os }}
 
     services:
       postgres:
@@ -30,9 +34,10 @@ jobs:
 
     steps:
       - name: Set up Go
-        uses: actions/setup-go@v3
+        uses: actions/setup-go@v4
         with:
-          go-version: 1.20
+          go-version: ${{ matrix.go }}
+          cache: false
 
       - name: Check out code into the Go module directory
         uses: actions/checkout@v3
